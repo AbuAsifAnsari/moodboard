@@ -44,7 +44,6 @@
       text-align: center;
     }
 
-    /* SCENE */
     .scene {
       position: relative;
       width: 500px;
@@ -52,7 +51,6 @@
       margin: 20px auto 0;
     }
 
-    /* GLOW */
     .glow {
       position: absolute;
       width: 200px;
@@ -68,7 +66,6 @@
       pointer-events: none;
     }
 
-    /* DESK */
     .desk {
       position: absolute;
       bottom: 20px;
@@ -92,13 +89,17 @@
       border-radius: 8px 8px 0 0;
     }
 
-    /* DESK PROPS */
     .coffee-cup {
       position: absolute;
       bottom: 68px;
       left: 80px;
       z-index: 2;
-      transition: transform 0.3s ease;
+      animation: cup-float 3s ease-in-out infinite;
+    }
+
+    @keyframes cup-float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-4px); }
     }
 
     .cup-body {
@@ -137,18 +138,26 @@
       right: 70px;
       z-index: 2;
       display: flex;
-      gap: -8px;
     }
 
     .note {
       width: 52px;
       height: 52px;
       border-radius: 4px;
-      position: relative;
     }
 
-    .note-1 { background: #FFE566; transform: rotate(-6deg); z-index: 2; }
-    .note-2 { background: #66FFB2; transform: rotate(4deg) translateX(-10px); z-index: 1; }
+    .note-1 { background: #FFE566; transform: rotate(-6deg); z-index: 2; animation: note-wiggle 4s ease-in-out infinite; }
+    .note-2 { background: #66FFB2; transform: rotate(4deg) translateX(-10px); z-index: 1; animation: note-wiggle2 4s ease-in-out infinite; }
+
+    @keyframes note-wiggle {
+      0%, 100% { transform: rotate(-6deg); }
+      50% { transform: rotate(-3deg); }
+    }
+
+    @keyframes note-wiggle2 {
+      0%, 100% { transform: rotate(4deg) translateX(-10px); }
+      50% { transform: rotate(7deg) translateX(-10px); }
+    }
 
     .pencil {
       position: absolute;
@@ -160,6 +169,12 @@
       background: linear-gradient(to bottom, #FFD700 80%, #FF8C00 100%);
       border-radius: 3px 3px 0 0;
       z-index: 2;
+      animation: pencil-sway 5s ease-in-out infinite;
+    }
+
+    @keyframes pencil-sway {
+      0%, 100% { transform: translateX(-50%) rotate(15deg); }
+      50% { transform: translateX(-50%) rotate(12deg); }
     }
 
     .pencil::after {
@@ -175,7 +190,6 @@
       border-top: 8px solid #CC9900;
     }
 
-    /* BLOO CHARACTER */
     .bloo-wrapper {
       position: absolute;
       bottom: 80px;
@@ -186,7 +200,6 @@
       flex-direction: column;
       align-items: center;
       animation: idle-float 2.5s ease-in-out infinite;
-      transform-origin: bottom center;
     }
 
     .arms-row {
@@ -221,87 +234,38 @@
       flex-shrink: 0;
     }
 
-    .eyebrows {
-      display: flex;
-      gap: 32px;
-      margin-bottom: 5px;
+    .eyebrows { display: flex; gap: 32px; margin-bottom: 5px; }
+    .eyebrow { width: 26px; height: 5px; background: white; border-radius: 10px; transition: transform 0.4s ease; }
+    .eyes { display: flex; gap: 24px; margin-bottom: 8px; }
+    .eye { width: 24px; height: 24px; background: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: all 0.3s ease; overflow: hidden; }
+    .pupil { width: 11px; height: 11px; background: #1a1a2e; border-radius: 50%; transition: all 0.3s ease; }
+    .mouth { width: 40px; height: 14px; background: white; border-radius: 50px; transition: all 0.4s ease; }
+    .legs { display: flex; gap: 16px; margin-top: 6px; }
+    .leg { width: 20px; height: 44px; background: #6C63FF; border-radius: 50px; transition: background 0.5s ease; }
+
+    /* BLINK */
+    .eye.blink { animation: blink 4s ease-in-out infinite; }
+    @keyframes blink {
+      0%, 45%, 55%, 100% { transform: scaleY(1); }
+      50% { transform: scaleY(0.08); }
     }
 
-    .eyebrow {
-      width: 26px;
-      height: 5px;
-      background: white;
-      border-radius: 10px;
-      transition: transform 0.4s ease;
-    }
-
-    .eyes {
-      display: flex;
-      gap: 24px;
-      margin-bottom: 8px;
-    }
-
-    .eye {
-      width: 24px;
-      height: 24px;
-      background: white;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.3s ease;
-      overflow: hidden;
-    }
-
-    .pupil {
-      width: 11px;
-      height: 11px;
-      background: #1a1a2e;
-      border-radius: 50%;
-      transition: all 0.3s ease;
-    }
-
-    .mouth {
-      width: 40px;
-      height: 14px;
-      background: white;
-      border-radius: 50px;
-      transition: all 0.4s ease;
-    }
-
-    .legs {
-      display: flex;
-      gap: 16px;
-      margin-top: 6px;
-    }
-
-    .leg {
-      width: 20px;
-      height: 44px;
-      background: #6C63FF;
-      border-radius: 50px;
-      transition: background 0.5s ease;
-    }
-
-    /* ANIMATIONS */
     @keyframes idle-float {
       0%, 100% { transform: translateX(-50%) translateY(0); }
       50% { transform: translateX(-50%) translateY(-8px); }
     }
-
     @keyframes inspired-jump {
       0%, 100% { transform: translateX(-50%) translateY(0) scale(1,1); }
-      20% { transform: translateX(-50%) translateY(-35px) scale(0.94,1.06); }
-      40% { transform: translateX(-50%) translateY(0) scale(1.06,0.94); }
-      60% { transform: translateX(-50%) translateY(-20px) scale(0.97,1.03); }
-      80% { transform: translateX(-50%) translateY(0) scale(1.02,0.98); }
+      10% { transform: translateX(-50%) translateY(12px) scale(1.05,0.95); }
+      25% { transform: translateX(-50%) translateY(-38px) scale(0.93,1.07); }
+      40% { transform: translateX(-50%) translateY(0) scale(1.07,0.93); }
+      55% { transform: translateX(-50%) translateY(-22px) scale(0.96,1.04); }
+      70% { transform: translateX(-50%) translateY(0) scale(1.03,0.97); }
     }
-
     @keyframes blocked-slump {
       0%, 100% { transform: translateX(-50%) translateY(0); }
       50% { transform: translateX(-50%) translateY(10px); }
     }
-
     @keyframes caff-shake {
       0%, 100% { transform: translateX(-50%) rotate(0deg); }
       15% { transform: translateX(calc(-50% - 8px)) rotate(-4deg); }
@@ -311,27 +275,25 @@
       75% { transform: translateX(calc(-50% - 4px)) rotate(-3deg); }
       90% { transform: translateX(calc(-50% + 4px)) rotate(3deg); }
     }
-
     @keyframes thinking-tilt {
       0%, 100% { transform: translateX(-50%) rotate(0deg); }
       50% { transform: translateX(-50%) rotate(-6deg); }
     }
-
     @keyframes celebrating-jump {
       0%, 100% { transform: translateX(-50%) translateY(0) scale(1,1); }
-      15% { transform: translateX(-50%) translateY(-50px) scale(0.92,1.08); }
-      30% { transform: translateX(-50%) translateY(0) scale(1.1,0.9); }
-      50% { transform: translateX(-50%) translateY(-30px) scale(0.95,1.05); }
-      65% { transform: translateX(-50%) translateY(0) scale(1.05,0.95); }
+      10% { transform: translateX(-50%) translateY(16px) scale(1.08,0.92); }
+      25% { transform: translateX(-50%) translateY(-52px) scale(0.91,1.09); }
+      40% { transform: translateX(-50%) translateY(0) scale(1.1,0.9); }
+      55% { transform: translateX(-50%) translateY(-30px) scale(0.95,1.05); }
+      70% { transform: translateX(-50%) translateY(0) scale(1.04,0.96); }
     }
 
-    .bloo-wrapper.inspired { animation: inspired-jump 0.8s ease-in-out infinite; }
+    .bloo-wrapper.inspired { animation: inspired-jump 0.9s ease-in-out infinite; }
     .bloo-wrapper.blocked { animation: blocked-slump 3s ease-in-out infinite; }
     .bloo-wrapper.caffeinated { animation: caff-shake 0.35s ease-in-out infinite; }
     .bloo-wrapper.thinking { animation: thinking-tilt 2s ease-in-out infinite; }
-    .bloo-wrapper.celebrating { animation: celebrating-jump 0.7s ease-in-out infinite; }
+    .bloo-wrapper.celebrating { animation: celebrating-jump 0.75s ease-in-out infinite; }
 
-    /* EXPRESSIONS */
     .inspired .arm-left { transform: rotate(-55deg) translateY(-10px); }
     .inspired .arm-right { transform: rotate(55deg) translateY(-10px); }
     .inspired .eyebrow-left { transform: rotate(-8deg) translateY(-4px); }
@@ -378,15 +340,7 @@
     .celebrating .head { background: #5FBF7F; }
     .celebrating .arm, .celebrating .leg { background: #5FBF7F; }
 
-    /* FLOATING ELEMENTS */
-    .float-el {
-      position: absolute;
-      font-size: 1.2rem;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.4s;
-    }
-
+    .float-el { position: absolute; font-size: 1.2rem; opacity: 0; pointer-events: none; transition: opacity 0.4s; }
     .show-inspired .sparkle { opacity: 1; }
     .show-caffeinated .coffee-el { opacity: 1; }
     .show-celebrating .confetti-el { opacity: 1; }
@@ -403,49 +357,14 @@
     .th1 { top: 30px; right: 70px; animation: float2 2s ease-in-out infinite; }
     .th2 { top: 55px; right: 50px; font-size: 0.7rem; animation: float2 2s ease-in-out infinite 0.3s; }
 
-    @keyframes float1 {
-      0%, 100% { transform: translateY(0) scale(1); }
-      50% { transform: translateY(-10px) scale(1.15); }
-    }
-    @keyframes float2 {
-      0%, 100% { transform: translateY(0) rotate(0deg); }
-      50% { transform: translateY(-8px) rotate(20deg); }
-    }
+    @keyframes float1 { 0%, 100% { transform: translateY(0) scale(1); } 50% { transform: translateY(-10px) scale(1.15); } }
+    @keyframes float2 { 0%, 100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(-8px) rotate(20deg); } }
 
-    /* MOOD LABEL */
-    .mood-label {
-      margin-top: 14px;
-      font-size: 1rem;
-      font-weight: 600;
-      letter-spacing: 0.06em;
-      min-height: 26px;
-      color: #6C63FF;
-      transition: color 0.4s ease;
-      text-align: center;
-    }
+    .mood-label { margin-top: 14px; font-size: 1rem; font-weight: 600; letter-spacing: 0.06em; min-height: 26px; color: #6C63FF; transition: color 0.4s ease; text-align: center; }
 
-    /* BUTTONS */
-    .buttons {
-      display: flex;
-      gap: 8px;
-      margin-top: 18px;
-      flex-wrap: wrap;
-      justify-content: center;
-      max-width: 520px;
-    }
+    .buttons { display: flex; gap: 8px; margin-top: 18px; flex-wrap: wrap; justify-content: center; max-width: 520px; }
 
-    .btn {
-      padding: 11px 18px;
-      border: none;
-      border-radius: 50px;
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 0.85rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: transform 0.15s, box-shadow 0.3s;
-      letter-spacing: 0.02em;
-    }
-
+    .btn { padding: 11px 18px; border: none; border-radius: 50px; font-family: 'Space Grotesk', sans-serif; font-size: 0.85rem; font-weight: 600; cursor: pointer; transition: transform 0.15s, box-shadow 0.3s; letter-spacing: 0.02em; }
     .btn:hover { transform: translateY(-3px); }
     .btn:active { transform: scale(0.96); }
 
@@ -460,21 +379,8 @@
     .btn-celebrating { background: #22C55E; color: #fff; }
     .btn-celebrating.active { box-shadow: 0 0 24px #22C55Eaa; }
 
-    .keyboard-hint {
-      margin-top: 10px;
-      font-size: 0.68rem;
-      color: #2a2a3a;
-      text-align: center;
-      letter-spacing: 0.05em;
-    }
-
-    .tagline {
-      margin-top: 16px;
-      font-size: 0.68rem;
-      color: #2a2a3a;
-      letter-spacing: 0.1em;
-      text-align: center;
-    }
+    .keyboard-hint { margin-top: 10px; font-size: 0.68rem; color: #2a2a3a; text-align: center; letter-spacing: 0.05em; }
+    .tagline { margin-top: 16px; font-size: 0.68rem; color: #2a2a3a; letter-spacing: 0.1em; text-align: center; }
   </style>
 </head>
 <body>
@@ -484,7 +390,6 @@
   <div class="scene" id="scene">
     <div class="glow" id="glow"></div>
 
-    <!-- Floating elements -->
     <span class="float-el sparkle sp1">✨</span>
     <span class="float-el sparkle sp2">⭐</span>
     <span class="float-el sparkle sp3">💡</span>
@@ -496,7 +401,6 @@
     <span class="float-el think-el th1">💭</span>
     <span class="float-el think-el th2">•••</span>
 
-    <!-- BLOO -->
     <div class="bloo-wrapper" id="bloo">
       <div class="arms-row">
         <div class="arm arm-left"></div>
@@ -506,8 +410,8 @@
             <div class="eyebrow eyebrow-right"></div>
           </div>
           <div class="eyes">
-            <div class="eye"><div class="pupil"></div></div>
-            <div class="eye"><div class="pupil"></div></div>
+            <div class="eye blink"><div class="pupil"></div></div>
+            <div class="eye blink"><div class="pupil"></div></div>
           </div>
           <div class="mouth"></div>
         </div>
@@ -519,10 +423,8 @@
       </div>
     </div>
 
-    <!-- Desk -->
     <div class="desk"></div>
 
-    <!-- Props -->
     <div class="coffee-cup">
       <div class="cup-steam">〰</div>
       <div class="cup-rim"></div>
@@ -551,6 +453,101 @@
   <p class="tagline">BUILT WITH RIVE · MOODBOARD · #characterchallenge</p>
 
   <script>
+    // Web Audio API sounds
+    const AudioContext = window.AudioContext || window.webkitAudioContext;
+    let audioCtx = null;
+
+    function getAudioCtx() {
+      if (!audioCtx) audioCtx = new AudioContext();
+      return audioCtx;
+    }
+
+    function playSound(type) {
+      try {
+        const ctx = getAudioCtx();
+        const now = ctx.currentTime;
+
+        if (type === 'inspired') {
+          // Upbeat ascending chime
+          [523, 659, 784, 1047].forEach((freq, i) => {
+            const o = ctx.createOscillator();
+            const g = ctx.createGain();
+            o.connect(g); g.connect(ctx.destination);
+            o.frequency.value = freq;
+            o.type = 'sine';
+            g.gain.setValueAtTime(0, now + i * 0.1);
+            g.gain.linearRampToValueAtTime(0.3, now + i * 0.1 + 0.05);
+            g.gain.linearRampToValueAtTime(0, now + i * 0.1 + 0.3);
+            o.start(now + i * 0.1);
+            o.stop(now + i * 0.1 + 0.3);
+          });
+        }
+
+        else if (type === 'blocked') {
+          // Sad descending tones
+          [330, 277, 220].forEach((freq, i) => {
+            const o = ctx.createOscillator();
+            const g = ctx.createGain();
+            o.connect(g); g.connect(ctx.destination);
+            o.frequency.value = freq;
+            o.type = 'sine';
+            g.gain.setValueAtTime(0.3, now + i * 0.2);
+            g.gain.linearRampToValueAtTime(0, now + i * 0.2 + 0.4);
+            o.start(now + i * 0.2);
+            o.stop(now + i * 0.2 + 0.4);
+          });
+        }
+
+        else if (type === 'caffeinated') {
+          // Fast rapid beeps
+          for (let i = 0; i < 6; i++) {
+            const o = ctx.createOscillator();
+            const g = ctx.createGain();
+            o.connect(g); g.connect(ctx.destination);
+            o.frequency.value = 800 + Math.random() * 400;
+            o.type = 'square';
+            g.gain.setValueAtTime(0.15, now + i * 0.06);
+            g.gain.linearRampToValueAtTime(0, now + i * 0.06 + 0.05);
+            o.start(now + i * 0.06);
+            o.stop(now + i * 0.06 + 0.05);
+          }
+        }
+
+        else if (type === 'thinking') {
+          // Soft hum
+          const o = ctx.createOscillator();
+          const g = ctx.createGain();
+          o.connect(g); g.connect(ctx.destination);
+          o.frequency.value = 220;
+          o.type = 'sine';
+          g.gain.setValueAtTime(0, now);
+          g.gain.linearRampToValueAtTime(0.15, now + 0.2);
+          g.gain.linearRampToValueAtTime(0.1, now + 0.6);
+          g.gain.linearRampToValueAtTime(0, now + 1.0);
+          o.start(now);
+          o.stop(now + 1.0);
+        }
+
+        else if (type === 'celebrating') {
+          // Fanfare!
+          [523, 659, 784, 659, 784, 1047].forEach((freq, i) => {
+            const o = ctx.createOscillator();
+            const g = ctx.createGain();
+            o.connect(g); g.connect(ctx.destination);
+            o.frequency.value = freq;
+            o.type = 'triangle';
+            g.gain.setValueAtTime(0, now + i * 0.08);
+            g.gain.linearRampToValueAtTime(0.35, now + i * 0.08 + 0.04);
+            g.gain.linearRampToValueAtTime(0, now + i * 0.08 + 0.2);
+            o.start(now + i * 0.08);
+            o.stop(now + i * 0.08 + 0.2);
+          });
+        }
+      } catch(e) {
+        console.log('Audio error:', e);
+      }
+    }
+
     const moods = {
       inspired: { label: '✨ Inspired — ideas are flowing!', color: '#8B83FF', glow: '#6C63FF', op: '0.3', sc: 'show-inspired', bc: 'mood-inspired' },
       blocked: { label: '😩 Blocked — send help (and snacks)', color: '#444', glow: '#1a1a2a', op: '0.1', sc: 'show-blocked', bc: 'mood-blocked' },
@@ -591,6 +588,7 @@
       glow.style.background = m.glow;
       glow.style.opacity = m.op;
       document.querySelector('.btn-' + mood).classList.add('active');
+      playSound(mood);
     }
 
     document.addEventListener('keydown', e => {
