@@ -18,7 +18,14 @@
       align-items: center;
       justify-content: center;
       padding: 32px 16px;
+      transition: background 0.6s ease;
     }
+
+    body.mood-inspired { background: #0d0b1e; }
+    body.mood-blocked { background: #0a0a0f; }
+    body.mood-caffeinated { background: #1a0f00; }
+    body.mood-thinking { background: #0a0f1a; }
+    body.mood-celebrating { background: #0f1a0a; }
 
     h1 {
       font-size: 2.8rem;
@@ -60,7 +67,6 @@
       transform: translate(-50%, -50%);
     }
 
-    /* BLOO WRAPPER */
     .bloo-wrapper {
       position: relative;
       z-index: 2;
@@ -72,13 +78,10 @@
       animation: idle-float 2.5s ease-in-out infinite;
     }
 
-    /* ARMS ROW */
     .arms-row {
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 0;
-      position: relative;
       width: 100%;
     }
 
@@ -94,7 +97,6 @@
     .arm-left { transform-origin: right center; }
     .arm-right { transform-origin: left center; }
 
-    /* HEAD */
     .head {
       width: 160px;
       height: 160px;
@@ -109,12 +111,10 @@
       flex-shrink: 0;
     }
 
-    /* EYEBROWS */
     .eyebrows {
       display: flex;
       gap: 36px;
       margin-bottom: 6px;
-      transition: all 0.4s ease;
     }
 
     .eyebrow {
@@ -125,7 +125,6 @@
       transition: transform 0.4s ease;
     }
 
-    /* EYES */
     .eyes {
       display: flex;
       gap: 28px;
@@ -141,6 +140,7 @@
       align-items: center;
       justify-content: center;
       transition: all 0.3s ease;
+      overflow: hidden;
     }
 
     .pupil {
@@ -151,7 +151,6 @@
       transition: all 0.3s ease;
     }
 
-    /* MOUTH */
     .mouth {
       width: 44px;
       height: 16px;
@@ -160,7 +159,6 @@
       transition: all 0.4s ease;
     }
 
-    /* LEGS */
     .legs {
       display: flex;
       gap: 20px;
@@ -175,28 +173,25 @@
       transition: background 0.5s ease, transform 0.4s ease;
     }
 
-    /* IDLE */
+    /* ANIMATIONS */
     @keyframes idle-float {
       0%, 100% { transform: translateY(0); }
       50% { transform: translateY(-10px); }
     }
 
-    /* INSPIRED */
     @keyframes inspired-jump {
       0%, 100% { transform: translateY(0) scale(1,1); }
-      20% { transform: translateY(-30px) scale(0.95, 1.05); }
-      40% { transform: translateY(0) scale(1.05, 0.95); }
-      60% { transform: translateY(-18px) scale(0.97, 1.03); }
-      80% { transform: translateY(0) scale(1.02, 0.98); }
+      20% { transform: translateY(-30px) scale(0.95,1.05); }
+      40% { transform: translateY(0) scale(1.05,0.95); }
+      60% { transform: translateY(-18px) scale(0.97,1.03); }
+      80% { transform: translateY(0) scale(1.02,0.98); }
     }
 
-    /* BLOCKED */
     @keyframes blocked-slump {
       0%, 100% { transform: translateY(0); }
       50% { transform: translateY(8px); }
     }
 
-    /* CAFFEINATED */
     @keyframes caff-shake {
       0%, 100% { transform: translateX(0) rotate(0deg); }
       15% { transform: translateX(-8px) rotate(-4deg); }
@@ -207,12 +202,27 @@
       90% { transform: translateX(4px) rotate(3deg); }
     }
 
+    @keyframes thinking-tilt {
+      0%, 100% { transform: rotate(0deg); }
+      50% { transform: rotate(-5deg); }
+    }
+
+    @keyframes celebrating-jump {
+      0%, 100% { transform: translateY(0) scale(1,1); }
+      15% { transform: translateY(-45px) scale(0.93,1.07); }
+      30% { transform: translateY(0) scale(1.1,0.9); }
+      50% { transform: translateY(-28px) scale(0.96,1.04); }
+      65% { transform: translateY(0) scale(1.05,0.95); }
+    }
+
     /* STATE CLASSES */
     .bloo-wrapper.inspired { animation: inspired-jump 0.8s ease-in-out infinite; }
     .bloo-wrapper.blocked { animation: blocked-slump 3s ease-in-out infinite; }
     .bloo-wrapper.caffeinated { animation: caff-shake 0.35s ease-in-out infinite; }
+    .bloo-wrapper.thinking { animation: thinking-tilt 2s ease-in-out infinite; }
+    .bloo-wrapper.celebrating { animation: celebrating-jump 0.7s ease-in-out infinite; }
 
-    /* Inspired expressions */
+    /* INSPIRED */
     .inspired .arm-left { transform: rotate(-50deg) translateY(-8px); }
     .inspired .arm-right { transform: rotate(50deg) translateY(-8px); }
     .inspired .eyebrow-left { transform: rotate(-8deg) translateY(-4px); }
@@ -222,7 +232,7 @@
     .inspired .head { background: #7C6FFF; }
     .inspired .arm, .inspired .leg { background: #7C6FFF; }
 
-    /* Blocked expressions */
+    /* BLOCKED */
     .blocked .arm-left { transform: rotate(30deg) translateY(6px); }
     .blocked .arm-right { transform: rotate(-30deg) translateY(6px); }
     .blocked .eyebrow-left { transform: rotate(15deg) translateY(4px); }
@@ -232,7 +242,7 @@
     .blocked .arm, .blocked .leg { background: #4a4a6a; }
     .blocked .eye { width: 22px; height: 14px; }
 
-    /* Caffeinated expressions */
+    /* CAFFEINATED */
     .caffeinated .arm-left { transform: rotate(-70deg) translateY(-12px); }
     .caffeinated .arm-right { transform: rotate(70deg) translateY(-12px); }
     .caffeinated .eyebrow-left { transform: translateY(-6px); }
@@ -242,6 +252,60 @@
     .caffeinated .pupil { width: 8px; height: 8px; }
     .caffeinated .head { background: #8B6FFF; }
     .caffeinated .arm, .caffeinated .leg { background: #8B6FFF; }
+
+    /* THINKING */
+    .thinking .arm-left { transform: rotate(-20deg) translateY(4px); }
+    .thinking .arm-right { transform: rotate(-60deg) translateY(-16px); }
+    .thinking .eyebrow-left { transform: translateY(-3px); }
+    .thinking .eyebrow-right { transform: translateY(-6px) rotate(-5deg); }
+    .thinking .pupil { transform: translateY(-4px); }
+    .thinking .mouth { width: 30px; height: 10px; border-radius: 50px; }
+    .thinking .head { background: #5B8FFF; }
+    .thinking .arm, .thinking .leg { background: #5B8FFF; }
+
+    /* CELEBRATING */
+    .celebrating .arm-left { transform: rotate(-80deg) translateY(-18px); }
+    .celebrating .arm-right { transform: rotate(80deg) translateY(-18px); }
+    .celebrating .eyebrow-left { transform: rotate(-10deg) translateY(-6px); }
+    .celebrating .eyebrow-right { transform: rotate(10deg) translateY(-6px); }
+    .celebrating .mouth { border-radius: 0 0 50px 50px; height: 22px; width: 60px; }
+    .celebrating .eye { width: 30px; height: 30px; }
+    .celebrating .head { background: #5FBF7F; }
+    .celebrating .arm, .celebrating .leg { background: #5FBF7F; }
+
+    /* SPARKLES */
+    .sparkle, .coffee-drop, .confetti, .think-bubble {
+      position: absolute;
+      font-size: 1.3rem;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s;
+    }
+
+    .show-inspired .sparkle { opacity: 1; }
+    .show-caffeinated .coffee-drop { opacity: 1; }
+    .show-celebrating .confetti { opacity: 1; }
+    .show-thinking .think-bubble { opacity: 1; }
+
+    .sp1 { top: 20px; left: 30px; animation: float1 1.2s ease-in-out infinite; }
+    .sp2 { top: 30px; right: 20px; animation: float2 1s ease-in-out infinite 0.2s; }
+    .sp3 { bottom: 80px; left: 20px; animation: float1 1.4s ease-in-out infinite 0.4s; }
+    .cd1 { top: 10px; right: 30px; animation: float1 0.5s ease-in-out infinite; }
+    .cd2 { top: 30px; left: 20px; animation: float2 0.5s ease-in-out infinite 0.1s; }
+    .cf1 { top: 10px; left: 40px; animation: float1 0.6s ease-in-out infinite; }
+    .cf2 { top: 20px; right: 30px; animation: float2 0.7s ease-in-out infinite 0.1s; }
+    .cf3 { bottom: 60px; right: 20px; animation: float1 0.5s ease-in-out infinite 0.2s; }
+    .tb1 { top: 15px; right: 20px; animation: float2 2s ease-in-out infinite; }
+    .tb2 { top: 40px; right: 10px; font-size: 0.8rem; animation: float2 2s ease-in-out infinite 0.3s; }
+
+    @keyframes float1 {
+      0%, 100% { transform: translateY(0) scale(1); }
+      50% { transform: translateY(-10px) scale(1.2); }
+    }
+    @keyframes float2 {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-8px) rotate(20deg); }
+    }
 
     /* MOOD LABEL */
     .mood-label {
@@ -258,18 +322,19 @@
     /* BUTTONS */
     .buttons {
       display: flex;
-      gap: 12px;
+      gap: 10px;
       margin-top: 24px;
       flex-wrap: wrap;
       justify-content: center;
+      max-width: 500px;
     }
 
     .btn {
-      padding: 14px 24px;
+      padding: 12px 20px;
       border: none;
       border-radius: 50px;
       font-family: 'Space Grotesk', sans-serif;
-      font-size: 0.95rem;
+      font-size: 0.9rem;
       font-weight: 600;
       cursor: pointer;
       transition: transform 0.15s, box-shadow 0.3s;
@@ -288,36 +353,22 @@
     .btn-caffeinated { background: #F59E0B; color: #1a1a1a; }
     .btn-caffeinated.active { box-shadow: 0 0 28px #F59E0Baa; }
 
-    /* SPARKLES */
-    .sparkle, .coffee-drop {
-      position: absolute;
-      font-size: 1.3rem;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.3s;
-    }
+    .btn-thinking { background: #3B6FFF; color: #fff; }
+    .btn-thinking.active { box-shadow: 0 0 28px #3B6FFFaa; }
 
-    .show-inspired .sparkle { opacity: 1; }
-    .show-caffeinated .coffee-drop { opacity: 1; }
+    .btn-celebrating { background: #22C55E; color: #fff; }
+    .btn-celebrating.active { box-shadow: 0 0 28px #22C55Eaa; }
 
-    .sp1 { top: 20px; left: 30px; animation: float1 1.2s ease-in-out infinite; }
-    .sp2 { top: 30px; right: 20px; animation: float2 1s ease-in-out infinite 0.2s; }
-    .sp3 { bottom: 80px; left: 20px; animation: float1 1.4s ease-in-out infinite 0.4s; }
-
-    .cd1 { top: 10px; right: 30px; animation: float1 0.5s ease-in-out infinite; }
-    .cd2 { top: 30px; left: 20px; animation: float2 0.5s ease-in-out infinite 0.1s; }
-
-    @keyframes float1 {
-      0%, 100% { transform: translateY(0) scale(1); }
-      50% { transform: translateY(-10px) scale(1.2); }
-    }
-    @keyframes float2 {
-      0%, 100% { transform: translateY(0) rotate(0deg); }
-      50% { transform: translateY(-8px) rotate(20deg); }
+    .keyboard-hint {
+      margin-top: 12px;
+      font-size: 0.72rem;
+      color: #333;
+      text-align: center;
+      letter-spacing: 0.05em;
     }
 
     .tagline {
-      margin-top: 32px;
+      margin-top: 24px;
       font-size: 0.72rem;
       color: #333;
       letter-spacing: 0.1em;
@@ -338,6 +389,11 @@
     <span class="sparkle sp3">💡</span>
     <span class="coffee-drop cd1">☕</span>
     <span class="coffee-drop cd2">⚡</span>
+    <span class="confetti cf1">🎉</span>
+    <span class="confetti cf2">🎊</span>
+    <span class="confetti cf3">✦</span>
+    <span class="think-bubble tb1">💭</span>
+    <span class="think-bubble tb2">•••</span>
 
     <div class="bloo-wrapper" id="bloo">
       <div class="arms-row">
@@ -368,7 +424,11 @@
     <button class="btn btn-inspired" onclick="setMood('inspired')">✨ Inspired</button>
     <button class="btn btn-blocked" onclick="setMood('blocked')">😩 Blocked</button>
     <button class="btn btn-caffeinated" onclick="setMood('caffeinated')">☕ Caffeinated</button>
+    <button class="btn btn-thinking" onclick="setMood('thinking')">🤔 Thinking</button>
+    <button class="btn btn-celebrating" onclick="setMood('celebrating')">🎉 Celebrating</button>
   </div>
+
+  <p class="keyboard-hint">Keyboard: 1 = Inspired · 2 = Blocked · 3 = Caffeinated · 4 = Thinking · 5 = Celebrating</p>
 
   <p class="tagline">BUILT WITH RIVE · MOODBOARD · INTERACTIVE CHARACTER CHALLENGE</p>
 
@@ -379,21 +439,40 @@
         labelColor: '#8B83FF',
         glow: '#6C63FF',
         glowOpacity: '0.35',
-        stageClass: 'show-inspired'
+        stageClass: 'show-inspired',
+        bodyClass: 'mood-inspired'
       },
       blocked: {
         label: '😩 Blocked — send help (and snacks)',
         labelColor: '#555',
         glow: '#2a2a3a',
         glowOpacity: '0.1',
-        stageClass: 'show-blocked'
+        stageClass: 'show-blocked',
+        bodyClass: 'mood-blocked'
       },
       caffeinated: {
         label: '☕ Caffeinated — LETS GOOO!!',
         labelColor: '#F59E0B',
         glow: '#F59E0B',
         glowOpacity: '0.25',
-        stageClass: 'show-caffeinated'
+        stageClass: 'show-caffeinated',
+        bodyClass: 'mood-caffeinated'
+      },
+      thinking: {
+        label: '🤔 Thinking — give me a moment...',
+        labelColor: '#5B8FFF',
+        glow: '#3B6FFF',
+        glowOpacity: '0.25',
+        stageClass: 'show-thinking',
+        bodyClass: 'mood-thinking'
+      },
+      celebrating: {
+        label: '🎉 Celebrating — WE DID IT!!',
+        labelColor: '#22C55E',
+        glow: '#22C55E',
+        glowOpacity: '0.3',
+        stageClass: 'show-celebrating',
+        bodyClass: 'mood-celebrating'
       }
     };
 
@@ -405,8 +484,9 @@
       const label = document.getElementById('mood-label');
       const stage = document.getElementById('stage');
 
-      bloo.classList.remove('inspired', 'blocked', 'caffeinated');
-      stage.classList.remove('show-inspired', 'show-blocked', 'show-caffeinated');
+      bloo.classList.remove('inspired','blocked','caffeinated','thinking','celebrating');
+      stage.classList.remove('show-inspired','show-blocked','show-caffeinated','show-thinking','show-celebrating');
+      document.body.classList.remove('mood-inspired','mood-blocked','mood-caffeinated','mood-thinking','mood-celebrating');
 
       if (currentMood === mood) {
         currentMood = null;
@@ -421,6 +501,7 @@
       currentMood = mood;
       bloo.classList.add(mood);
       stage.classList.add(moods[mood].stageClass);
+      document.body.classList.add(moods[mood].bodyClass);
       label.textContent = moods[mood].label;
       label.style.color = moods[mood].labelColor;
       glow.style.background = moods[mood].glow;
@@ -429,6 +510,12 @@
       document.querySelectorAll('.btn').forEach(b => b.classList.remove('active'));
       document.querySelector('.btn-' + mood).classList.add('active');
     }
+
+    // Keyboard shortcuts
+    document.addEventListener('keydown', (e) => {
+      const keys = { '1': 'inspired', '2': 'blocked', '3': 'caffeinated', '4': 'thinking', '5': 'celebrating' };
+      if (keys[e.key]) setMood(keys[e.key]);
+    });
   </script>
 
 </body>
